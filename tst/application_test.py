@@ -2,7 +2,7 @@ import unittest
 
 from .context import application
 
-class MainTest(unittest.TestCase):
+class ApplicationTest(unittest.TestCase):
 
     def test_run(self):
         application.Application().run()
