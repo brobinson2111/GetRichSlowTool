@@ -23,11 +23,13 @@ class CalendarUtilTest(unittest.TestCase):
     def test_account_for_weekend_saturday(self):
         timestamp = 1533344658
         test_datetime = datetime.datetime.utcfromtimestamp(timestamp)
-        self.assertNotEqual(test_datetime, calendar_util.account_for_weekend(test_datetime))
-        self.assertEqual(5, test_datetime.weekday())
+        actual_datetime = calendar_util.account_for_weekend(test_datetime)
+        self.assertNotEqual(test_datetime, actual_datetime)
+        self.assertEqual(4, actual_datetime.weekday())
 
     def test_account_for_weekend_sunday(self):
-        timestamp = 1533431058
+        timestamp = 1533449058
         test_datetime = datetime.datetime.utcfromtimestamp(timestamp)
-        self.assertNotEqual(test_datetime, calendar_util.account_for_weekend(test_datetime))
-        self.assertEqual(0, test_datetime.weekday())
+        actual_datetime = calendar_util.account_for_weekend(test_datetime)
+        self.assertNotEqual(test_datetime, actual_datetime)
+        self.assertEqual(0, actual_datetime.weekday())
