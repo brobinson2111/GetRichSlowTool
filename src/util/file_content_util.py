@@ -26,11 +26,10 @@ def print_security_info(security_info):
     security_info_content.append(new_line_char)
     security_info_content.append(
         """
-        With the given configuration you are able to purchase {0} share(s) every {1} days. Over the duration of this plan you will
-        make {2} purchases for a total of {3} share(s) and expected contribution of ${4:,.2f}. This calculation was unable to
-        consider ${5:,.2f} due to lack of alignment in purchase amount and expected contribution.
+        With the given configuration you are able to purchase share(s) every {0} days. Over the duration of this plan you will
+        make {1} purchases for a total of {2} share(s) and expected contribution of ${3:,.2f}. This calculation was unable to
+        consider ${4:,.2f} due to lack of alignment in purchase amount and expected contribution.
         """.format(
-            security_info.batch_size,
             security_info.frequency,
             security_info.num_transactions,
             security_info.number_of_shares,
@@ -38,11 +37,12 @@ def print_security_info(security_info):
             security_info.excess))
     security_info_content.append(new_line_char)
     security_info_content.append(new_line_char)
-    for index, purchase_date in enumerate(security_info.purchase_days):
+    for index, transaction in enumerate(security_info.transaction_list):
         security_info_content.append(tab_char)
-        security_info_content.append("Buy Number {0}: {1}".format(
+        security_info_content.append("Buy Number {0}: On {1} you should buy {2} share(s)".format(
             str(index + 1),
-            purchase_date.strftime("%A, %d %B %Y")))
+            transaction.datetime.strftime("%A, %d %B %Y"),
+            transaction.number_of_shares))
         security_info_content.append(new_line_char)
     security_info_content.append(new_line_char)    
     security_info_content.append(new_line_char)    

@@ -3,4 +3,5 @@
 
 nosetests -v tst.application_test &&
 nosetests -v tst.entities.security_info_test &&
+nosetests -v tst.entities.transaction_info_test &&
 nosetests -v tst.util.calendar_util_test
