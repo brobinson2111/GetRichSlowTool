@@ -1,0 +1,11 @@
+#
+##### Project Requirements #####
+#
+##### Files to be installed via pip #####
+
+###### Requirements without Version Specifiers ######
+nose
+
+###### Requirements with Version Specifiers ######
+click >= 6.7
+python-dateutil >= 2.7.3
