@@ -5,6 +5,7 @@ Created By: Brandon Robinson (brobinson2111)
 
 import logging
 import math
+import random
 from decimal import Decimal, ROUND_DOWN       
 from src.util import calendar_util
 
@@ -49,7 +50,7 @@ class SecurityInfo(object):
         # Return None if there are not enough funds to purchase this security.
         # No plan will be provided.
         if (share_price > expected_contribution):
-            raise Exception('There were not enough funds to support the purchase of %s. Please fix configuration and run again.'.format(name))
+            raise Exception('There were not enough funds to support the purchase of {0}. Please fix configuration and run again.'.format(name))
 
         self.name = name
 
@@ -63,7 +64,9 @@ class SecurityInfo(object):
 
         purchase_days = []
         for day in range(self.frequency, requested_length + 1, self.frequency):
-            expected_day = calendar_util.account_for_weekend((calendar_util.days_from_today(day)))
+            expected_day = calendar_util.account_for_weekend(
+                calendar_util.days_from_today(
+                    random.randint(day - self.frequency, day)))
             purchase_days.append(expected_day)
         self.purchase_days = purchase_days
 

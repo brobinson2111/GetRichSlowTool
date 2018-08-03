@@ -1,5 +1,7 @@
 import click
 
+from src.application import Application
+
 @click.command()
 @click.option(
     '--total_capitol',
@@ -19,9 +21,7 @@ import click
     prompt='Output Location',
     help='This is the location on the disc where a file with the output will be produced.')
 def get_rich_slowly(total_capitol, number_of_days_to_spend, output_location):
-    print("This is the total capitol: " + str(total_capitol))
-    print("This is the number of days to spend: " + str(number_of_days_to_spend))
-    print("This is the output location: " + output_location)
+    Application(total_capitol, number_of_days_to_spend, output_location).run()
 
 
 if __name__ == '__main__':

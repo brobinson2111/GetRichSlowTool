@@ -28,16 +28,21 @@ class Application(object):
         self.total_capitol = total_capitol
         self.number_of_days_to_spend = number_of_days_to_spend
         self.output_location = output_location
+        self.__logger.info("Running with a configuration of Total Capitol: {0}, Number of Days to Spend: {1} and Output Location: {2}"
+            .format(total_capitol, number_of_days_to_spend, output_location))
 
     def run(self):
         self.__logger.info('Running Application...')
         self.__logger.info('Starting Marshalling of Configurations.')
         security_info_list = self.__security_info_list()
+        self.__logger.info('Successfully Marshalled of Configurations.')
         self.__logger.info('The amount of configurations after marshalling is: ' + str(len(security_info_list)))
 
+        self.__logger.info('Starting to produce content for the output file...')
         content_to_write = file_content_util.get_introduction(self.total_capitol, self.number_of_days_to_spend)
         for security_info in security_info_list:
             content_to_write.append(file_content_util.print_security_info(security_info))
+        self.__logger.info('Successfully produced content for the output file...')
 
         with open(self.output_location, 'w') as output_file:
             output_file.write(''.join(map(str, content_to_write)))
