@@ -42,6 +42,8 @@ class Application(object):
         content_to_write = file_content_util.get_introduction(self.total_capitol, self.number_of_days_to_spend)
         for security_info in security_info_list:
             content_to_write.append(file_content_util.print_security_info(security_info))
+        total_excess = sum(security_info.excess for security_info in security_info_list)
+        content_to_write.append(file_content_util.print_footer(total_excess))
         self.__logger.info('Successfully produced content for the output file...')
 
         with open(self.output_location, 'w') as output_file:

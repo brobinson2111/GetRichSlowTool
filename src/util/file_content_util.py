@@ -12,18 +12,15 @@ def get_introduction(total_capitol, number_of_days):
             datetime.datetime.now(tzlocal()).strftime("%A, %d %B %Y %I:%M%p"),
             '${:,.2f}'.format(total_capitol),
             number_of_days))
-    introduction.append(new_line_char)
-    introduction.append(new_line_char)
+    __blank_line(introduction)
     introduction.append("Report Details:")
-    introduction.append(new_line_char)
-    introduction.append(new_line_char)
+    __blank_line(introduction)
     return introduction
 
 def print_security_info(security_info):
     security_info_content = []
     security_info_content.append("Security: {0}".format(security_info.name))
-    security_info_content.append(new_line_char)
-    security_info_content.append(new_line_char)
+    __blank_line(security_info_content)
     security_info_content.append(
         """
         With the given configuration you are able to purchase share(s) every {0} days. Over the duration of this plan you will
@@ -35,8 +32,7 @@ def print_security_info(security_info):
             security_info.number_of_shares,
             security_info.actual_contribution,
             security_info.excess))
-    security_info_content.append(new_line_char)
-    security_info_content.append(new_line_char)
+    __blank_line(security_info_content)
     for index, transaction in enumerate(security_info.transaction_list):
         security_info_content.append(tab_char)
         security_info_content.append("Buy Number {0}: On {1} you should buy {2} share(s)".format(
@@ -44,7 +40,18 @@ def print_security_info(security_info):
             transaction.datetime.strftime("%A, %d %B %Y"),
             transaction.number_of_shares))
         security_info_content.append(new_line_char)
-    security_info_content.append(new_line_char)    
-    security_info_content.append(new_line_char)    
+    __blank_line(security_info_content)
         
     return ''.join(map(str, security_info_content))
+
+def print_footer(total_excess):
+    footer_content = []
+    footer_content.append("Aggregated Info: ")
+    __blank_line(footer_content)
+    footer_content.append("The total excess capitol within this run was: ${:,.2f}. This may be re-allocated manually.".format(total_excess))
+    __blank_line(footer_content)
+    return ''.join(map(str, footer_content))
+
+def __blank_line(array):
+    array.append(new_line_char)
+    array.append(new_line_char)
