@@ -23,9 +23,11 @@ def print_security_info(security_info):
     __blank_line(security_info_content)
     security_info_content.append(
         """
-        With the given configuration you are able to purchase share(s) every {0} days. Over the duration of this plan you will
-        make {1} purchases for a total of {2} share(s) and expected contribution of ${3:,.2f}. This calculation was unable to
-        consider ${4:,.2f} due to lack of alignment in purchase amount and expected contribution.
+        With the given configuration you are able to purchase share(s) every {0} days.
+        Over the duration of this plan you will make {1} purchases for a total of
+        {2} share(s) and expected contribution of ${3:,.2f}. This calculation was
+        unable to consider ${4:,.2f} due to lack of alignment in purchase amount and
+        expected contribution.
         """.format(
             security_info.frequency,
             security_info.num_transactions,
