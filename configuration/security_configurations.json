@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Apple",
+        "contribution": 0.15,
+        "current_price": 200
+    },
+    {
+        "name": "Amazon",
+        "contribution": 0.25,
+        "current_price": 1000
+    },
+    {
+        "name": "Microsoft",
+        "contribution": 0.35,
+        "current_price": 100
+    }
+]
