@@ -31,6 +31,8 @@ class SecurityInfoTest(unittest.TestCase):
 
         self.assertEqual('Amazon', actual_object.name)
         self.assertEqual(5, actual_object.number_of_shares)
+        self.assertEqual(5, actual_object.num_transactions)
+        self.assertEqual(1, actual_object.batch_size)
         self.assertEqual(500.00, actual_object.actual_contribution)
         self.assertEqual(0.0, actual_object.excess)
         self.assertEqual(20, actual_object.frequency)
@@ -52,10 +54,35 @@ class SecurityInfoTest(unittest.TestCase):
 
         self.assertEqual('Apple', actual_object.name)
         self.assertEqual(6, actual_object.number_of_shares)
+        self.assertEqual(6, actual_object.num_transactions)
+        self.assertEqual(1, actual_object.batch_size)
         self.assertEqual(148.74, actual_object.actual_contribution)
         self.assertEqual(1.25, actual_object.excess)
         self.assertEqual(16, actual_object.frequency)
-        self.assertEqual(7, len(actual_object.purchase_days))
+        self.assertEqual(6, len(actual_object.purchase_days))
+
+    def test_construct_with_batch_size(self):
+        security_configuration = json.loads(
+        """
+            {
+                "name": "Microsoft",
+                "contribution": 0.80,
+                "current_price": 50.00
+            }
+        """)
+        total_capitol = 100000
+        requested_length = 100
+
+        actual_object = security_info.SecurityInfo(security_configuration, total_capitol, requested_length)
+
+        self.assertEqual('Microsoft', actual_object.name)
+        self.assertEqual(1584, actual_object.number_of_shares)
+        self.assertEqual(11, actual_object.num_transactions)
+        self.assertEqual(144, actual_object.batch_size)
+        self.assertEqual(79200.00, actual_object.actual_contribution)
+        self.assertEqual(800.00, actual_object.excess)
+        self.assertEqual(9, actual_object.frequency)
+        self.assertEqual(11, len(actual_object.purchase_days))
 
     def test_construct_illegal_configuration(self):
         security_configuration = json.loads(
