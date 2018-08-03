@@ -8,7 +8,7 @@ def get_introduction(total_capitol, number_of_days):
     introduction = []
     introduction.append(new_line_char)
     introduction.append(
-        "This is your report requested at: {0} for a capitol expenditure of: {1} over a duration of: {2} days".format(
+        "This is your report requested at: {0} for a capital expenditure of: {1} over a duration of: {2} days".format(
             datetime.datetime.now(tzlocal()).strftime("%A, %d %B %Y %I:%M%p"),
             '${:,.2f}'.format(total_capitol),
             number_of_days))
@@ -48,7 +48,7 @@ def print_footer(total_excess):
     footer_content = []
     footer_content.append("Aggregated Info: ")
     __blank_line(footer_content)
-    footer_content.append("The total excess capitol within this run was: ${:,.2f}. This may be re-allocated manually.".format(total_excess))
+    footer_content.append("The total excess capital within this run was: ${:,.2f}. This may be re-allocated manually.".format(total_excess))
     __blank_line(footer_content)
     return ''.join(map(str, footer_content))
 
