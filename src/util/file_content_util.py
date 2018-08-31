@@ -46,6 +46,20 @@ def print_security_info(security_info):
         
     return ''.join(map(str, security_info_content))
 
+def print_security_schedule(security_schedule):
+    security_schedule_content = []
+    security_schedule_content.append("The purchase schedule for the requested report: ")
+    __blank_line(security_schedule_content)
+    for transaction in security_schedule:
+        security_schedule_content.append("On {0} you should buy {1} share(s) of {2}".format(
+            transaction.datetime.strftime("%A, %d %B %Y"),
+            transaction.number_of_shares,
+            transaction.security_name))
+        security_schedule_content.append(new_line_char)
+    __blank_line(security_schedule_content)
+
+    return ''.join(map(str, security_schedule_content))
+
 def print_footer(total_excess):
     footer_content = []
     footer_content.append("Aggregated Info: ")

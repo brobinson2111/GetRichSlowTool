@@ -8,6 +8,7 @@ import logging
 import os
 
 from src.entities.security_info import SecurityInfo
+from src.entities.transaction_schedule_info import TransactionScheduleInfo
 from src.util import logger_config
 from src.util import file_content_util
 
@@ -35,6 +36,7 @@ class Application(object):
         self.__logger.info('Running Application...')
         self.__logger.info('Starting Marshalling of Configurations.')
         security_info_list = self.__security_info_list()
+        security_schedule = self.__security_schedule(security_info_list)
         self.__logger.info('Successfully Marshalled of Configurations.')
         self.__logger.info('The amount of configurations after marshalling is: ' + str(len(security_info_list)))
 
@@ -42,6 +44,7 @@ class Application(object):
         content_to_write = file_content_util.get_introduction(self.total_capitol, self.number_of_days_to_spend)
         for security_info in security_info_list:
             content_to_write.append(file_content_util.print_security_info(security_info))
+        content_to_write.append(file_content_util.print_security_schedule(security_schedule))
         total_excess = sum(security_info.excess for security_info in security_info_list)
         content_to_write.append(file_content_util.print_footer(total_excess))
         self.__logger.info('Successfully produced content for the output file...')
@@ -56,6 +59,13 @@ class Application(object):
             self.__logger.info('This is the configuration used for this Application run: ' + json.dumps(security_configurations))
             return self.__marshall_configurations(security_configurations)
 
+    def __security_schedule(self, security_info_list):
+        security_schedule = []
+        for security_info in security_info_list:
+            for transaction_info in security_info.transaction_list:
+                security_schedule.append(TransactionScheduleInfo(
+                    security_info.name, transaction_info.number_of_shares, transaction_info.datetime))
+        return sorted(security_schedule, key=lambda transaction: transaction.datetime, reverse=False)
 
     def __marshall_configurations(self, security_configurations):
         marshalled_configurations = []
